@@ -1,0 +1,13 @@
+# Define the custom base alphabets
+water_alphabet="water"
+stir_alphabet="st.ir"
+bestchol_alphabet="bestchol"
+
+# # Convert WATER from 'water' base to a decimal number
+water_in_decimal=$(echo "$WATER" | tr "$water_alphabet" "01234" | bc "ibase=5; 0${num_water}")
+
+# Convert STIR from 'st.ir' base to a decimal number
+stir_in_decimal=$(echo "$STIR" | tr "$stir_alphabet" "01234" | bc "ibase=5; 0${num_stir}")
+
+# Add the two decimal numbers, convert the sum to 'bestchol' base (8), and then map to the 'bestchol' alphabet
+echo $(bc <<< "obase=8; $water_in_decimal + $stir_in_decimal") | tr "01234567" "$bestchol_alphabet"
